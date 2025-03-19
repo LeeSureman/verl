@@ -116,6 +116,7 @@ class ActorRolloutRefWorker(Worker):
         if self._is_actor:
             self.config.actor.ppo_mini_batch_size *= self.config.rollout.n
             self.config.actor.ppo_mini_batch_size //= (self.device_mesh.size() // self.ulysses_sequence_parallel_size)
+            print('self.config.actor.ppo_mini_batch_size in ActorRolloutRefWorker.__init__: {}'.format(self.config.actor.ppo_mini_batch_size))
             assert self.config.actor.ppo_mini_batch_size > 0, f'ppo_mini_batch_size {self.config.actor.ppo_mini_batch_size} should be larger than 0 after normalization'
             # micro bsz
             if self.config.actor.ppo_micro_batch_size is not None:
