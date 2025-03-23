@@ -125,7 +125,13 @@ class RLHFDataset(Dataset):
         dataframes = []
         for parquet_file in self.parquet_files:
             # read parquet files and cache
-            dataframe = pd.read_parquet(parquet_file)
+            if parquet_file.endswith('.parquet'):
+                    dataframe = pd.read_parquet(parquet_file)
+            elif parquet_file.endswith('.jsonl'):
+                    input_js_s = list(jsonlines.open(parquet_file))
+                    dataframe = pd.DataFrame(input_js_s)
+            else:
+                print('not compatible with {}'.format(parquet_file))
             dataframes.append(dataframe)
         self.dataframe = pd.concat(dataframes)
 
