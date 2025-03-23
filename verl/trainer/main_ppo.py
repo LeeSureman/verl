@@ -144,8 +144,8 @@ def main_task(config):
         from verl.workers.reward_manager import PrimeRewardManager
         reward_manager_cls = PrimeRewardManager
     elif reward_manager_name == 'naive_multiprocess':
-        from verl.workers.reward_manager import NaiveMultiprocessRewardManager
-        reward_manager_cls = NaiveMultiprocessRewardManager
+        from verl.workers.reward_manager import NaiveMultiProcessRewardManager
+        reward_manager_cls = NaiveMultiProcessRewardManager
     else:
         raise NotImplementedError
 
