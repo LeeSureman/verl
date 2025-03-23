@@ -135,13 +135,17 @@ def main_task(config):
         role_worker_mapping[Role.RewardModel] = ray.remote(RewardModelWorker)
         mapping[Role.RewardModel] = global_pool_id
 
-    reward_manager_name = config.reward_model.get("reward_manager", "naive")
+    reward_manager_name = config.reward_model.get("reward_manager", "naive_multiprocess")
+    print('reward_manager_name: {}'.format(reward_manager_name))
     if reward_manager_name == 'naive':
         from verl.workers.reward_manager import NaiveRewardManager
         reward_manager_cls = NaiveRewardManager
     elif reward_manager_name == 'prime':
         from verl.workers.reward_manager import PrimeRewardManager
         reward_manager_cls = PrimeRewardManager
+    elif reward_manager_name == 'naive_multiprocess':
+        from verl.workers.reward_manager import NaiveMultiprocessRewardManager
+        reward_manager_cls = NaiveMultiprocessRewardManager
     else:
         raise NotImplementedError
 
