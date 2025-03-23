@@ -16,7 +16,7 @@ from verl import DataProto
 from verl.utils.reward_score import _default_compute_score
 import torch
 from collections import defaultdict
-from multiprocessing import Pool
+from torch.multiprocessing import Pool
 
 
 class NaiveMultiProcessRewardManager:
