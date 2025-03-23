@@ -20,7 +20,7 @@ from torch.multiprocessing import Pool
 
 
 def wrapped_compute_reward(args):
-    data_source, solution_str, ground_truth, extra_info, compute_score = args
+    data_source, response_str, ground_truth, extra_info, compute_score = args
     result = compute_score(
         data_source=data_source,
         solution_str=response_str,
