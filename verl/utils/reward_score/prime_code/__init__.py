@@ -38,6 +38,10 @@ def compute_score(completion, test_cases, continuous=False):
         except Exception as e:
             pass
 
+        if not continuous:
+            return False, None
+
+
         test_cases_list = []
         inputs = test_cases["inputs"]
         outputs = test_cases["outputs"]
