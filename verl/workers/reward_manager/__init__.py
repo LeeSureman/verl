@@ -14,4 +14,4 @@
 
 from .naive import NaiveRewardManager
 from .prime import PrimeRewardManager
-from .naive_multiprocess import NaiveMultiprocessRewardManager
+from .naive_multiprocess import NaiveMultiProcessRewardManager
