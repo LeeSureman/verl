@@ -16,7 +16,7 @@ from verl import DataProto
 from verl.utils.reward_score import _default_compute_score
 import torch
 from collections import defaultdict
-from torch.multiprocessing import Pool
+from torch.multiprocessing import Pool, get_context
 
 
 def wrapped_compute_reward(args):
@@ -134,7 +134,7 @@ class NaiveMultiProcessRewardManager:
             extra_info = data_item.non_tensor_batch.get('extra_info', None)
 
             compute_score_args_list.append([data_source, response_str, ground_truth, extra_info, self.compute_score])
-        with Pool(processes=16, daemon=False) as pool:
+        with get_context("spawn").Pool(processes=16, daemon=False) as pool:
             compute_score_result_list = pool.map(wrapped_compute_reward, compute_score_args_list)
 
         for i in range(len(data)):
