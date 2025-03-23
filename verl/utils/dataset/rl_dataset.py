@@ -26,6 +26,7 @@ from transformers import PreTrainedTokenizer, ProcessorMixin
 
 from verl.utils.model import compute_position_id_with_mask
 import verl.utils.torch_functional as verl_F
+import jsonlines
 
 
 def collate_fn(data_list: list[dict]) -> dict:
@@ -125,7 +126,13 @@ class RLHFDataset(Dataset):
         dataframes = []
         for parquet_file in self.parquet_files:
             # read parquet files and cache
-            dataframe = pd.read_parquet(parquet_file)
+            if parquet_file.endswith('.parquet'):
+                    dataframe = pd.read_parquet(parquet_file)
+            elif parquet_file.endswith('.jsonl'):
+                    input_js_s = list(jsonlines.open(parquet_file))
+                    dataframe = pd.DataFrame(input_js_s)
+            else:
+                print('not compatible with {}'.format(parquet_file))
             dataframes.append(dataframe)
         self.dataframe = pd.concat(dataframes)
 
