@@ -135,7 +135,7 @@ class NaiveMultiProcessRewardManager:
             extra_info = data_item.non_tensor_batch.get('extra_info', None)
 
             compute_score_args_list.append([data_source, response_str, ground_truth, extra_info, self.compute_score])
-        with Pool(max_workers=16) as pool:
+        with Pool(max_workers=64) as pool:
             compute_score_result_list = list(pool.map(wrapped_compute_reward, compute_score_args_list))
 
         for i in range(len(data)):
