@@ -74,4 +74,11 @@ def compute_score(completion, test_cases, continuous=False):
         traceback.print_exc(10)
         success = False
         metadata_list = None
+
+    if not continuous:
+        result_dict = {}
+        result_dict['score'] = float(success)
+        result_dict['acc'] = success
+        result_dict['pred'] = solution
+        return result_dict
     return success, metadata_list
