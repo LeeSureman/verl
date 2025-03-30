@@ -34,12 +34,21 @@ def compute_score(completion, test_cases, continuous=False):
             metadata = dict(enumerate(metadata))[0]
             success = all(map(lambda x: x == True, res))
             if success:
-                return success, metadata
+                result_dict = {}
+                result_dict['score'] = float(success)
+                result_dict['acc'] = success
+                result_dict['pred'] = solution
+                return result_dict
         except Exception as e:
             pass
 
         if not continuous:
-            return False, None
+            success = False
+            result_dict = {}
+            result_dict['score'] = float(success)
+            result_dict['acc'] = success
+            result_dict['pred'] = solution
+            return result_dict
 
 
         test_cases_list = []
